@@ -30,8 +30,13 @@ pipeline {
         stage('Sonarqube Analyses') {
             steps {
                 withSonarQubeEnv('SonarQube-Server'){
-                    sh '''${SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Example-Sonarqube-CI \
-                    -Dsonar.projectKey=Example-Sonarqube-CI}'''
+                    sh '''${SCANNER_HOME/bin/sonar-scanner \
+                            -Dsonar.projectKey=Example-Sonarqube-CI \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=http://13.114.235.148:9000 \
+                            -Dsonar.login=sqp_686fb0dbc833dd7accd86595899fdde445e2ca2a}'''
+//                     sh '''${SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Example-Sonarqube-CI \
+//                     -Dsonar.projectKey=Example-Sonarqube-CI}'''
                 }
             }
         }
