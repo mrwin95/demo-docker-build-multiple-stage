@@ -5,7 +5,7 @@ pipeline {
         nodejs 'NodeJS18.20.4'
     }
     environment {
-        SCANNER_HOME = tool "sonar-scanner"
+        SCANNER_HOME = tool "SonarQubeScanner"
         APP_NAME = ""
         RELEASE=""
         DOCKER_USER="mrwin95"
