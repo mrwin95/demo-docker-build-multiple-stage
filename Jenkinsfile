@@ -16,15 +16,44 @@ pipeline {
     }
 
     stages {
-        stage("clean workspace") {
+        stage('clean workspace') {
             steps {
-                cleanws()
+                cleanWs()
             }
         }
-        stage("checkout from git") {
-                    steps {
-                        git branch: 'main', url:
-                    }
+        stage('checkout from git') {
+            steps {
+                git branch: 'main', url: 'https://github.com/mrwin95/demo-docker-build-multiple-stage.git'
+            }
+        }
+
+        stage('Sonarqube Analyses') {
+            steps {
+                withSonarQubeEnv('SonarQube-Server'){
+                    sh '''${SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Example-Sonarqube-CI \
+                    -Dsonar.projectKey=Example-Sonarqube-CI}'''
                 }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Token'
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
+
+        stage('trivy fs scan') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
     }
 }
