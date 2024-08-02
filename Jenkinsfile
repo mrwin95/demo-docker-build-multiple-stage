@@ -1,19 +1,19 @@
 pipeline {
     agent any
     tools {
-        jdk 'jdk17'
-        nodejs 'NodeJS18.20.4'
-        maven 'jenkins-maven'
+        jdk 'jdk17-jenkins'
+        nodejs 'nodejs-jenkins'
+        maven 'maven-jenkins'
     }
     environment {
-        SCANNER_HOME = tool "SonarQubeScanner"
+        SCANNER_HOME = tool "sonarqube-scanner-jenkins"
         APP_NAME = "demo-docker-sonar-pipeline"
         RELEASE="1.0.0"
         DOCKER_USER="mrwin95"
         DOCKER_PASS="Thang@123"
         IMAGE_NAME="${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-        MAVEN_HOME= tool "jenkins-maven"
+        MAVEN_HOME= tool "maven-jenkins"
     }
 
     stages {
@@ -42,9 +42,9 @@ pipeline {
 
         stage('Sonarqube Analyses') {
             steps {
-                withSonarQubeEnv('SonarQube-Server'){
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Example-Sonarqube-CI \
-                        -Dsonar.projectKey=Example-Sonarqube-CI \
+                withSonarQubeEnv('sonarqube-server'){
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=example-ci \
+                        -Dsonar.projectKey=example-ci \
                         -Dsonar.sources=.\
                         -Dsonar.language=java \
                         -Dsonar.java.binaries=.'''
@@ -55,7 +55,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube-token'
                 }
             }
         }
