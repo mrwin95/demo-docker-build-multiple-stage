@@ -38,7 +38,7 @@ pipeline {
                         -Dsonar.projectKey=Example-Sonarqube-CI \
                         -Dsonar.sources=.\
                         -Dsonar.language=java \
-                        -Dsonar.java.binaries=target/classes'''
+                        -Dsonar.java.binaries=.'''
                 }
             }
         }
