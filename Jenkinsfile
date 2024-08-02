@@ -3,6 +3,7 @@ pipeline {
     tools {
         jdk 'jdk17'
         nodejs 'NodeJS18.20.4'
+        maven 'jenkins-maven'
     }
     environment {
         SCANNER_HOME = tool "SonarQubeScanner"
