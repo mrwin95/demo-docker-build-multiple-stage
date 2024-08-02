@@ -10,7 +10,7 @@ pipeline {
         APP_NAME = "demo-docker-sonar-pipeline"
         RELEASE="1.0.0"
         DOCKER_USER="mrwin95"
-        DOCKER_PASS="Thang@123"
+        DOCKER_PASS="dockerhub"
         IMAGE_NAME="${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
         MAVEN_HOME= tool "maven-jenkins"
