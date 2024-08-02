@@ -35,6 +35,9 @@ pipeline {
 //                             -Dsonar.host.url=http://13.114.235.148:9000 \
 //                             -Dsonar.login=sqp_686fb0dbc833dd7accd86595899fdde445e2ca2a'''
                     sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Example-Sonarqube-CI \
+                    -Dsonar.sources=.\
+                    -Dsonar.language=java \
+                    -Dsonar.java.libraries=**/target/classes
                     -Dsonar.projectKey=Example-Sonarqube-CI'''
                 }
             }
