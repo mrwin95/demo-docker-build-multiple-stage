@@ -76,7 +76,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_PASS){
-                        docker_image = docker.build "${}IMAGE_NAME}"
+                        docker_image = docker.build "${IMAGE_NAME}"
                     }
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_PASS){
                         docker_image.push("${IMAGE_TAG}")
