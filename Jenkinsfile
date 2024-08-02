@@ -46,11 +46,11 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh "mvn install"
-            }
-        }
+//         stage('Install Dependencies') {
+//             steps {
+//                 sh "mvn install"
+//             }
+//         }
 
         stage('trivy fs scan') {
             steps {
