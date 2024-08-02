@@ -10,7 +10,7 @@ pipeline {
         APP_NAME = "demo-docker-sonar-pipeline"
         RELEASE="1.0.0"
         DOCKER_USER="mrwin95"
-        DOCKER_PASS="dockerhub"
+        DOCKER_PASS="docker"
         IMAGE_NAME="${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
         MAVEN_HOME= tool "maven-jenkins"
@@ -75,10 +75,10 @@ pipeline {
         stage('Build and Push Docker image') {
             steps {
                 script {
-                    docker.withRegistry('', DOCKER_PASS){
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_PASS){
                         docker_image = docker.build "${}IMAGE_NAME}"
                     }
-                    docker.withRegistry('', DOCKER_PASS){
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_PASS){
                         docker_image.push("${IMAGE_TAG}")
                         docker_image.push("latest")
                     }
