@@ -1,7 +1,12 @@
 FROM maven:3-eclipse-temurin-17 AS build
 ARG JAR_FILE=target/*.jar
 RUN mkdir /usr/src/project
-COPY . /usr/src/project
+COPY ./ /usr/src/project
+#COPY mvnw /usr/src/project
+#COPY mvnw.cmd /usr/src/project
+#COPY .mvn /usr/src/project
+
+COPY src /usr/src/project
 WORKDIR /usr/src/project
 RUN mvn package -DskipTests
 RUN jar xf ${JAR_FILE}
