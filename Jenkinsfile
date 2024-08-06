@@ -6,6 +6,8 @@ pipeline {
         maven 'maven-jenkins'
     }
     environment {
+//      AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+//      AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
         SCANNER_HOME = tool "sonarqube-scanner-jenkins"
         APP_NAME = "demo-docker-sonar-pipeline"
         RELEASE="1.0.0"
